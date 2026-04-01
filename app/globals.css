@@ -544,26 +544,26 @@ h2 {
     letter-spacing: 0.24em;
   }
 
-.mobile-menu-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding: 0;
-  border: 1px solid rgba(242, 238, 231, 0.12);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text);
-  font: inherit;
-  cursor: pointer;
-}
+  .mobile-menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
+    border: 1px solid rgba(242, 238, 231, 0.12);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+  }
 
-.mobile-menu-icon {
-  display: grid;
-  gap: 0.28rem;
-  width: 1rem;
-}
+  .mobile-menu-icon {
+    display: grid;
+    gap: 0.28rem;
+    width: 1rem;
+  }
 
   .mobile-menu-icon span {
     display: block;
