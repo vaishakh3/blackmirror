@@ -63,7 +63,7 @@ a {
   z-index: 30;
   width: min(calc(100% - 2rem), 980px);
   margin: 0 auto;
-  padding: 1.15rem 0 0;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) 0 0;
 }
 
 .nav-shell {
@@ -241,6 +241,7 @@ a {
   display: grid;
   justify-items: center;
   text-align: center;
+  width: min(100%, 50rem);
 }
 
 .eyebrow,
@@ -347,6 +348,7 @@ h2 {
   font-style: italic;
   letter-spacing: 0.08em;
   color: var(--muted);
+  max-width: 30rem;
 }
 
 .statement,
@@ -447,14 +449,32 @@ h2 {
   }
 
   .nav-shell {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    grid-template-columns: 1fr auto;
+    justify-items: stretch;
+    align-items: center;
     gap: 0.7rem;
     padding: 0.9rem 1rem;
   }
 
+  .nav-signature {
+    justify-self: start;
+  }
+
+  .nav-cta {
+    justify-self: end;
+  }
+
+  .site-nav {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(242, 238, 231, 0.08);
+  }
+
   .hero {
-    padding: 7.6rem 0 2rem;
+    min-height: calc(100svh - 0.5rem);
+    padding: 8.8rem 0 2rem;
   }
 
   .hero-grid {
@@ -490,11 +510,11 @@ h2 {
 
 @media (max-width: 640px) {
   h1 {
-    font-size: clamp(2.9rem, 15vw, 4.8rem);
+    font-size: clamp(2.6rem, 14vw, 4.3rem);
   }
 
   h2 {
-    font-size: clamp(2.2rem, 11vw, 3.6rem);
+    font-size: clamp(2rem, 10vw, 3.2rem);
   }
 
   .statement p,
@@ -510,9 +530,32 @@ h2 {
     gap: 0.75rem;
   }
 
+  .site-header {
+    width: calc(100% - 0.75rem);
+    padding-top: calc(0.65rem + env(safe-area-inset-top, 0px));
+  }
+
+  .nav-shell {
+    gap: 0.8rem;
+    padding: 0.8rem 0.85rem;
+  }
+
+  .nav-signature,
+  .nav-cta {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+  }
+
   .site-nav {
-    flex-wrap: wrap;
-    gap: 0.7rem 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.55rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+  }
+
+  .site-nav a {
+    text-align: center;
   }
 
   .hero-aura {
@@ -529,8 +572,87 @@ h2 {
     display: none;
   }
 
+  .hero {
+    padding-top: 9.6rem;
+  }
+
+  .hero-note {
+    max-width: 18rem;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .hero-actions {
+    width: min(100%, 22rem);
+    gap: 0.75rem;
+  }
+
+  .button {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.82rem;
+  }
+
+  .cta .button:first-child {
+    font-size: 0.76rem;
+    letter-spacing: 0.01em;
+    overflow-wrap: anywhere;
+  }
+
+  .statement,
+  .services,
+  .merch,
+  .cta {
+    padding: 4.25rem 0;
+  }
+
+  .service-list,
+  .product-list {
+    margin-top: 2rem;
+  }
+
+  .service-item h3 {
+    font-size: 1.35rem;
+  }
+
+  .product-row {
+    align-items: flex-start;
+    font-size: 1.15rem;
+    line-height: 1.2;
+  }
+
+  .product-row span:first-child {
+    max-width: 70%;
+  }
+
   .wordmark span:last-child {
     -webkit-text-stroke-width: 0.8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero,
+  .statement,
+  .services,
+  .merch,
+  .cta {
+    width: calc(100% - 1.25rem);
+  }
+
+  .nav-shell {
+    border-radius: 1.25rem;
+  }
+
+  .wordmark {
+    font-size: clamp(2.35rem, 15vw, 3.8rem);
+    line-height: 0.84;
+  }
+
+  .eyebrow,
+  .section-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
   }
 }
 
