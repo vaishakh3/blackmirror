@@ -181,6 +181,7 @@ a {
 }
 
 .hero-aura,
+.hero-vortex,
 .hero-grid,
 .hero-ring,
 .hero-beam {
@@ -205,12 +206,54 @@ a {
   mask-image: radial-gradient(circle at 50% 45%, black, transparent 76%);
 }
 
+.hero-vortex {
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  opacity: 0.26;
+  will-change: transform;
+}
+
+.hero-vortex::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(242, 238, 231, 0.12) 0deg 10deg,
+      transparent 10deg 24deg,
+      rgba(242, 238, 231, 0.05) 24deg 28deg,
+      transparent 28deg 42deg
+    );
+  filter: blur(2px);
+}
+
+.hero-vortex-large {
+  width: min(58vw, 760px);
+  height: min(58vw, 760px);
+  animation: hero-vortex-spin 18s linear infinite;
+  mask-image: radial-gradient(circle, transparent 54%, black 56%, transparent 74%);
+}
+
+.hero-vortex-small {
+  width: min(35vw, 460px);
+  height: min(35vw, 460px);
+  opacity: 0.2;
+  animation: hero-vortex-spin-reverse 11s linear infinite;
+  mask-image: radial-gradient(circle, transparent 46%, black 49%, transparent 68%);
+}
+
 .hero-ring {
   left: 50%;
   top: 50%;
   border: 1px solid rgba(242, 238, 231, 0.06);
   border-radius: 50%;
   transform: translate(-50%, -50%);
+  transform-origin: center;
 }
 
 .hero-ring-large {
@@ -437,6 +480,26 @@ h2 {
 .cta-copy {
   max-width: 34rem;
   margin-top: 1.35rem;
+}
+
+@keyframes hero-vortex-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes hero-vortex-spin-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
 }
 
 @media (max-width: 960px) {

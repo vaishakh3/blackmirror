@@ -76,6 +76,8 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-background" aria-hidden="true">
           <div className="hero-aura" />
+          <div className="hero-vortex hero-vortex-large" />
+          <div className="hero-vortex hero-vortex-small" />
           <div className="hero-grid" />
           <div className="hero-ring hero-ring-large" />
           <div className="hero-ring hero-ring-small" />
