@@ -1,3 +1,5 @@
+import SiteHeader from "../components/site-header";
+
 const services = [
   {
     index: "01",
@@ -69,27 +71,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <header className="site-header">
-        <div className="nav-shell">
-          <a className="nav-signature" href="#top" aria-label="Black Mirror Studio home">
-            blackmirror.studio
-          </a>
-
-          <nav className="site-nav" aria-label="Primary">
-            <a href="#studio">Studio</a>
-            <a href="#services">Services</a>
-            <a href="#merch">Merch</a>
-            <a href="#contact">Contact</a>
-          </nav>
-
-          <a
-            className="nav-cta"
-            href="mailto:hello@blackmirror.studio?subject=Project%20Inquiry"
-          >
-            hello
-          </a>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="hero" id="top">
         <div className="hero-background" aria-hidden="true">
