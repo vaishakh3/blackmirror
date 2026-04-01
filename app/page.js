@@ -19,8 +19,56 @@ const services = [
 const products = ["Studio tee", "Heavy hoodie", "Cap", "Objects"];
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://blackmirror.studio/#organization",
+        name: "Black Mirror Studio",
+        url: "https://blackmirror.studio",
+        logo: "https://blackmirror.studio/icon.svg",
+        email: "hello@blackmirror.studio",
+        description:
+          "Black Mirror Studio is a creative design and development agency building identity systems, websites, and limited merch.",
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://blackmirror.studio/#website",
+        url: "https://blackmirror.studio",
+        name: "Black Mirror Studio",
+        publisher: {
+          "@id": "https://blackmirror.studio/#organization",
+        },
+        inLanguage: "en",
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://blackmirror.studio/#service",
+        name: "Black Mirror Studio",
+        url: "https://blackmirror.studio",
+        description:
+          "Creative agency offering brand identity, web design, web development, and merch direction.",
+        provider: {
+          "@id": "https://blackmirror.studio/#organization",
+        },
+        serviceType: [
+          "Brand identity design",
+          "Web design",
+          "Web development",
+          "Merch design",
+        ],
+      },
+    ],
+  };
+
   return (
     <main className="page-shell">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <header className="site-header">
         <div className="nav-shell">
           <a className="nav-signature" href="#top" aria-label="Black Mirror Studio home">
@@ -59,7 +107,7 @@ export default function Home() {
             <span>BLACK</span>
             <span>MIRROR</span>
           </h1>
-          <p className="hero-note">Design, development, and merch.</p>
+          <p className="hero-note">Creative agency for design, development, and merch.</p>
 
           <div className="hero-actions">
             <a
@@ -80,8 +128,9 @@ export default function Home() {
         <div className="statement-grid">
           <h2>Built for brands that need precision, atmosphere, and clean execution.</h2>
           <p>
-            Black Mirror Studio creates identity systems, digital experiences,
-            and limited merch with a minimal visual language.
+            Black Mirror Studio is a creative design and development agency
+            building identity systems, websites, and limited merch with a
+            minimal visual language.
           </p>
         </div>
       </section>
