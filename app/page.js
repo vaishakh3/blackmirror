@@ -151,7 +151,9 @@ export default function Home() {
               src={freeYourMindTee.images[0].src}
               alt={freeYourMindTee.images[0].alt}
               priority={false}
-              sizes="(max-width: 960px) 100vw, 42vw"
+              placeholder="blur"
+              quality={80}
+              sizes="(max-width: 640px) 92vw, (max-width: 960px) 96vw, 42vw"
               className="featured-product-image"
             />
           </a>

@@ -1,17 +1,40 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProductGallery({ images, productName }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
   const [origin, setOrigin] = useState("50% 50%");
+  const [canZoom, setCanZoom] = useState(false);
 
   const activeImage = images[activeIndex];
   const totalImages = images.length;
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const syncZoomCapability = () => {
+      setCanZoom(mediaQuery.matches);
+
+      if (!mediaQuery.matches) {
+        setIsZoomed(false);
+        setOrigin("50% 50%");
+      }
+    };
+
+    syncZoomCapability();
+    mediaQuery.addEventListener("change", syncZoomCapability);
+
+    return () => mediaQuery.removeEventListener("change", syncZoomCapability);
+  }, []);
+
   const handlePointerMove = (event) => {
+    if (!canZoom || event.pointerType !== "mouse") {
+      return;
+    }
+
     const bounds = event.currentTarget.getBoundingClientRect();
     const x = ((event.clientX - bounds.left) / bounds.width) * 100;
     const y = ((event.clientY - bounds.top) / bounds.height) * 100;
@@ -70,11 +93,19 @@ export default function ProductGallery({ images, productName }) {
 
         <button
           type="button"
-          className={`product-gallery-main${isZoomed ? " is-zoomed" : ""}`}
-          onClick={() => setIsZoomed((zoomed) => !zoomed)}
+          className={`product-gallery-main${canZoom && isZoomed ? " is-zoomed" : ""}${!canZoom ? " is-static" : ""}`}
+          onClick={() => {
+            if (canZoom) {
+              setIsZoomed((zoomed) => !zoomed);
+            }
+          }}
           onPointerMove={handlePointerMove}
           onPointerLeave={resetZoom}
-          aria-label={`${productName} image viewer. Click to ${isZoomed ? "reset zoom" : "zoom in"}.`}
+          aria-label={
+            canZoom
+              ? `${productName} image viewer. Click to ${isZoomed ? "reset zoom" : "zoom in"}.`
+              : `${productName} image viewer.`
+          }
         >
           <Image
             src={activeImage.src}
@@ -82,7 +113,9 @@ export default function ProductGallery({ images, productName }) {
             preload={activeIndex === 0}
             loading={activeIndex === 0 ? "eager" : "lazy"}
             fetchPriority={activeIndex === 0 ? "high" : "auto"}
-            sizes="(max-width: 960px) 100vw, 58vw"
+            placeholder="blur"
+            quality={82}
+            sizes="(max-width: 640px) 92vw, (max-width: 960px) 96vw, 58vw"
             className="product-gallery-image"
             style={{ transformOrigin: origin }}
           />
@@ -102,6 +135,7 @@ export default function ProductGallery({ images, productName }) {
             <Image
               src={image.src}
               alt={image.alt}
+              quality={70}
               sizes="72px"
               className="product-thumb-image"
             />

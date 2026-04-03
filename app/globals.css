@@ -950,6 +950,10 @@ h2 {
   justify-self: end;
 }
 
+.product-gallery-main.is-static {
+  cursor: default;
+}
+
 .product-gallery-main.is-zoomed {
   cursor: zoom-out;
 }
@@ -1167,12 +1171,18 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .product-gallery {
+    order: 1;
+  }
+
   .product-copy {
+    order: 2;
     position: static;
   }
 
   .product-hero {
     width: calc(100% - 2rem);
+    gap: 1.5rem;
   }
 
   .konami-shell {
@@ -1381,6 +1391,10 @@ h2 {
     justify-self: stretch;
   }
 
+  .product-gallery-stage {
+    gap: 0.6rem;
+  }
+
   .product-gallery-main {
     width: 100%;
     justify-self: stretch;
@@ -1550,6 +1564,8 @@ h2 {
   }
 
   .product-gallery-status {
+    width: 100%;
+    justify-content: space-between;
     gap: 0.45rem;
   }
 
