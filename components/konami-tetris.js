@@ -425,6 +425,17 @@ export default function KonamiTetris() {
   }, [isOpen]);
 
   useEffect(() => {
+    const handleUnlock = () => {
+      if (!isOpen) {
+        openGame();
+      }
+    };
+
+    window.addEventListener("mirror-konami-unlock", handleUnlock);
+    return () => window.removeEventListener("mirror-konami-unlock", handleUnlock);
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleTouchStart = (event) => {
       if (isOpen || event.touches.length !== 1) {
         return;

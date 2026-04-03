@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+
 const konamiHint = [
   { label: "↑", value: "ArrowUp" },
   { label: "↑", value: "ArrowUp" },
@@ -14,8 +16,21 @@ const konamiHint = [
 ];
 
 export default function SiteFooter() {
+  const footerSequenceIndex = useRef(0);
+
   const sendKonamiInput = (key) => {
-    window.dispatchEvent(new CustomEvent("mirror-konami-input", { detail: { key } }));
+    const expectedKey = konamiHint[footerSequenceIndex.current]?.value;
+
+    if (key === expectedKey) {
+      footerSequenceIndex.current += 1;
+
+      if (footerSequenceIndex.current === konamiHint.length) {
+        footerSequenceIndex.current = 0;
+        window.dispatchEvent(new CustomEvent("mirror-konami-unlock"));
+      }
+    } else {
+      footerSequenceIndex.current = key === konamiHint[0].value ? 1 : 0;
+    }
   };
 
   return (
