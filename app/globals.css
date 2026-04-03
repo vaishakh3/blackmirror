@@ -57,6 +57,276 @@ a {
   overflow: clip;
 }
 
+.site-footer {
+  width: min(calc(100% - 3rem), var(--max-width));
+  margin: 0 auto;
+  padding: 0 0 1.6rem;
+}
+
+.site-footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(242, 238, 231, 0.08);
+}
+
+.site-footer-label,
+.site-footer-hint {
+  margin: 0;
+  color: rgba(242, 238, 231, 0.42);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.site-footer-hint {
+  text-align: right;
+}
+
+.konami-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 3vw, 1.75rem);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.08), transparent 24%),
+    rgba(4, 4, 4, 0.84);
+  backdrop-filter: blur(18px);
+  overflow: auto;
+}
+
+.konami-shell {
+  width: min(100%, 980px);
+  max-height: calc(100svh - 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.52fr);
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.2rem);
+  border: 1px solid rgba(242, 238, 231, 0.14);
+  border-radius: 1.8rem;
+  background:
+    linear-gradient(180deg, rgba(15, 15, 15, 0.98), rgba(7, 7, 7, 0.98)),
+    rgba(8, 8, 8, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 28px 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  animation: konami-shell-in 420ms cubic-bezier(0.18, 0.88, 0.32, 1) both;
+}
+
+.konami-stage,
+.konami-sidebar {
+  min-width: 0;
+}
+
+.konami-stage {
+  display: grid;
+  gap: 1rem;
+  min-height: 0;
+}
+
+.konami-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.konami-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.konami-close {
+  min-height: 2.4rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color var(--ease),
+    border-color var(--ease),
+    background-color var(--ease);
+}
+
+.konami-close:hover,
+.konami-close:focus-visible {
+  color: var(--text);
+  border-color: rgba(242, 238, 231, 0.24);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.konami-board-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.85rem, 2vw, 1.15rem);
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.05), transparent 26%),
+    rgba(255, 255, 255, 0.015);
+  min-height: 0;
+  height: 100%;
+}
+
+.konami-board-frame::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(242, 238, 231, 0.04);
+  border-radius: 1rem;
+  pointer-events: none;
+}
+
+.konami-board {
+  width: min(100%, 19rem, calc((100svh - 10rem) / 2.12));
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 0.22rem;
+}
+
+.konami-cell,
+.konami-preview-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 0.3rem;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.konami-cell.is-filled,
+.konami-preview-cell.is-filled {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 24px rgba(255, 255, 255, 0.08);
+}
+
+.piece-I {
+  background: rgba(242, 238, 231, 0.92);
+}
+
+.piece-O {
+  background: rgba(222, 218, 209, 0.88);
+}
+
+.piece-T {
+  background: rgba(205, 200, 190, 0.84);
+}
+
+.piece-S {
+  background: rgba(190, 185, 176, 0.82);
+}
+
+.piece-Z {
+  background: rgba(176, 170, 162, 0.78);
+}
+
+.piece-J {
+  background: rgba(160, 156, 150, 0.72);
+}
+
+.piece-L {
+  background: rgba(146, 142, 136, 0.68);
+}
+
+.konami-sidebar {
+  display: grid;
+  align-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0.1rem 0.1rem;
+}
+
+.konami-copy {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.konami-copy h2 {
+  margin: 0;
+}
+
+.konami-copy p,
+.konami-status p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.konami-stats {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.konami-stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.konami-stat span,
+.konami-preview-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.konami-stat strong {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.konami-preview-wrap {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.konami-preview-label {
+  margin: 0;
+}
+
+.konami-preview {
+  width: min(100%, 9rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.32rem;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.konami-status {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.konami-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.konami-button {
+  min-width: 7.2rem;
+}
+
 .site-header {
   position: fixed;
   inset: 0 0 auto 0;
@@ -461,6 +731,66 @@ h2 {
   max-width: 34rem;
 }
 
+.featured-product {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 0.86fr) minmax(0, 0.82fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 2.5rem;
+}
+
+.featured-product-visual {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 1.45rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 30%),
+    rgba(255, 255, 255, 0.02);
+}
+
+.featured-product-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.featured-product-copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.featured-product-copy h3,
+.product-title {
+  margin: 0;
+  font-family: "Didot", "Bodoni 72", "Iowan Old Style", serif;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.92;
+}
+
+.featured-product-copy h3 {
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+}
+
+.featured-product-copy p,
+.product-description,
+.product-story,
+.product-subtitle {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.inline-merch-link {
+  width: fit-content;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(242, 238, 231, 0.28);
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .product-list {
   margin-top: 2.5rem;
   border-top: 1px solid var(--line);
@@ -475,6 +805,249 @@ h2 {
   border-bottom: 1px solid var(--line);
   font-size: clamp(1.3rem, 2vw, 1.9rem);
   letter-spacing: -0.05em;
+}
+
+.product-row span:last-child {
+  text-align: right;
+  max-width: 46%;
+}
+
+.merch-page-shell {
+  padding-bottom: 4rem;
+}
+
+.product-hero {
+  width: min(calc(100% - 3rem), var(--max-width));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.86fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  padding: 8.8rem 0 3rem;
+}
+
+.product-copy {
+  display: grid;
+  gap: 1.3rem;
+  position: sticky;
+  top: 7.6rem;
+}
+
+.product-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-badge,
+.product-collection {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.product-badge {
+  background: var(--text);
+  color: #070708;
+  font-weight: 700;
+}
+
+.product-collection {
+  border: 1px solid var(--line-strong);
+  color: var(--muted);
+}
+
+.product-title {
+  font-size: clamp(3rem, 6vw, 5.8rem);
+}
+
+.product-subtitle {
+  font-size: 0.92rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 0.7rem;
+}
+
+.product-compact-specs {
+  display: grid;
+  margin-top: 0.35rem;
+  border-top: 1px solid var(--line);
+}
+
+.product-compact-spec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.product-compact-spec span:first-child {
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
+.product-compact-spec span:last-child {
+  max-width: 56%;
+  text-align: right;
+}
+
+.product-gallery {
+  display: grid;
+  gap: 0.85rem;
+  width: min(100%, 34rem);
+  justify-self: end;
+  align-content: start;
+}
+
+.product-gallery-stage {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.product-gallery-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.product-gallery-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.product-gallery-main {
+  position: relative;
+  width: min(100%, calc((100svh - 16rem) * 0.6667));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 1.7rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 30%),
+    rgba(255, 255, 255, 0.02);
+  cursor: zoom-in;
+  appearance: none;
+  aspect-ratio: 2 / 3;
+  justify-self: end;
+}
+
+.product-gallery-main.is-zoomed {
+  cursor: zoom-out;
+}
+
+.product-gallery-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-gallery-main:hover .product-gallery-image,
+.product-gallery-main.is-zoomed .product-gallery-image {
+  transform: scale(1.9);
+}
+
+.product-gallery-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.product-gallery-arrows {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.product-gallery-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid rgba(242, 238, 231, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--ease),
+    background-color var(--ease),
+    transform var(--ease);
+}
+
+.product-gallery-arrow span {
+  display: block;
+  font-size: 1.35rem;
+  line-height: 1;
+  transform: translateY(-0.06rem);
+}
+
+.product-gallery-arrow:hover {
+  border-color: rgba(242, 238, 231, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.product-gallery-filmstrip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: min(100%, calc((100svh - 16rem) * 0.6667));
+  justify-self: end;
+}
+
+.product-thumb {
+  display: block;
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: inherit;
+  cursor: pointer;
+  appearance: none;
+  transition:
+    border-color var(--ease),
+    background-color var(--ease),
+    transform var(--ease);
+}
+
+.product-thumb.is-active {
+  border-color: rgba(242, 238, 231, 0.32);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.product-thumb-image {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0.62rem;
 }
 
 .cta-copy {
@@ -502,12 +1075,27 @@ h2 {
   }
 }
 
+@keyframes konami-shell-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.972);
+    filter: blur(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 @media (max-width: 960px) {
   .hero,
   .statement,
   .services,
   .merch,
-  .cta {
+  .cta,
+  .site-footer {
     width: calc(100% - 2rem);
   }
 
@@ -572,6 +1160,50 @@ h2 {
 
   .statement-grid {
     grid-template-columns: 1fr;
+  }
+
+  .featured-product,
+  .product-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .product-copy {
+    position: static;
+  }
+
+  .product-hero {
+    width: calc(100% - 2rem);
+  }
+
+  .konami-shell {
+    grid-template-columns: 1fr;
+    max-height: none;
+  }
+
+  .konami-stage {
+    order: 1;
+  }
+
+  .konami-sidebar {
+    order: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+  }
+
+  .konami-copy,
+  .konami-stats,
+  .konami-preview-wrap,
+  .konami-status {
+    min-width: 0;
+  }
+
+  .konami-copy {
+    grid-column: 1 / -1;
+  }
+
+  .konami-preview {
+    width: 100%;
+    max-width: 9rem;
   }
 }
 
@@ -730,6 +1362,46 @@ h2 {
     height: min(56vw, 360px);
     top: 44%;
   }
+
+  .product-gallery-filmstrip {
+    grid-template-columns: repeat(7, minmax(3.3rem, 1fr));
+    overflow-x: auto;
+    padding-bottom: 0.2rem;
+    scrollbar-width: none;
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .product-gallery-filmstrip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-gallery {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .product-gallery-main {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .konami-overlay {
+    padding: 0.85rem;
+  }
+
+  .konami-shell {
+    border-radius: 1.4rem;
+  }
+
+  .konami-board {
+    width: min(100%, 18rem, calc((100svh - 12rem) / 2.1));
+    gap: 0.22rem;
+  }
+
+  .konami-cell {
+    border-radius: 0.22rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -861,6 +1533,98 @@ h2 {
     max-width: 70%;
   }
 
+  .featured-product-copy h3 {
+    font-size: clamp(1.8rem, 9vw, 2.7rem);
+  }
+
+  .product-title {
+    font-size: clamp(2.45rem, 12vw, 4rem);
+  }
+
+  .product-actions {
+    display: grid;
+  }
+
+  .product-gallery-head {
+    gap: 0.75rem;
+  }
+
+  .product-gallery-status {
+    gap: 0.45rem;
+  }
+
+  .product-gallery-count {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+  }
+
+  .product-gallery-arrow {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .product-gallery-filmstrip {
+    gap: 0.55rem;
+    grid-template-columns: repeat(7, minmax(3rem, 1fr));
+  }
+
+  .konami-shell {
+    padding: 0.8rem;
+  }
+
+  .konami-topline {
+    align-items: flex-start;
+  }
+
+  .konami-close {
+    min-height: 2.15rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.64rem;
+  }
+
+  .konami-board-frame {
+    padding: 0.7rem;
+    border-radius: 1.15rem;
+  }
+
+  .konami-board {
+    width: min(100%, 15rem, calc((100svh - 14rem) / 2.08));
+    gap: 0.18rem;
+  }
+
+  .konami-sidebar {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .konami-stats {
+    order: 2;
+  }
+
+  .konami-preview-wrap {
+    order: 3;
+  }
+
+  .konami-status {
+    order: 4;
+  }
+
+  .konami-actions {
+    display: grid;
+  }
+
+  .konami-button {
+    width: 100%;
+  }
+
+  .product-compact-spec {
+    align-items: flex-start;
+  }
+
+  .product-compact-spec span:last-child {
+    max-width: 52%;
+  }
+
   .wordmark span:last-child {
     -webkit-text-stroke-width: 0.8px;
   }
@@ -871,8 +1635,19 @@ h2 {
   .statement,
   .services,
   .merch,
-  .cta {
+  .cta,
+  .site-footer {
     width: calc(100% - 1.25rem);
+  }
+
+  .site-footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-footer-hint {
+    text-align: left;
+    line-height: 1.8;
   }
 
   .mobile-topbar {
@@ -887,6 +1662,10 @@ h2 {
   .wordmark {
     font-size: clamp(2.35rem, 15vw, 3.8rem);
     line-height: 0.84;
+  }
+
+  .product-hero {
+    width: calc(100% - 1.25rem);
   }
 
   .hero-vortex-large {

@@ -1,4 +1,6 @@
+import Image from "next/image";
 import SiteHeader from "../components/site-header";
+import { freeYourMindTee } from "../lib/products";
 
 const services = [
   {
@@ -17,8 +19,6 @@ const services = [
     description: "Limited apparel and objects that extend the brand without feeling promotional.",
   },
 ];
-
-const products = ["Studio tee", "Heavy hoodie", "Cap", "Objects"];
 
 export default function Home() {
   const jsonLd = {
@@ -141,20 +141,43 @@ export default function Home() {
       <section className="merch" id="merch">
         <div className="merch-intro">
           <p className="section-label">Merch</p>
-          <h2>Merch will be part of the studio from the start.</h2>
-          <p>
-            Limited drops, clean graphics, and pieces designed with the same
-            restraint as the digital work.
-          </p>
+          <h2>Drop 1.</h2>
+          <p>Free Your Mind Tee, now available.</p>
         </div>
 
-        <div className="product-list" aria-label="Merch direction">
-          {products.map((product) => (
-            <div className="product-row" key={product}>
-              <span>{product}</span>
-              <span>planned</span>
+        <div className="featured-product">
+          <a className="featured-product-visual" href="/merch/free-your-mind-tee" aria-label="View Free Your Mind Tee">
+            <Image
+              src={freeYourMindTee.images[0].src}
+              alt={freeYourMindTee.images[0].alt}
+              priority={false}
+              sizes="(max-width: 960px) 100vw, 42vw"
+              className="featured-product-image"
+            />
+          </a>
+
+          <div className="featured-product-copy">
+            <div className="product-meta-row">
+              <span className="product-badge">New</span>
+              <span className="product-collection">{freeYourMindTee.collection}</span>
             </div>
-          ))}
+
+            <h3>{freeYourMindTee.name}</h3>
+            <p>Oversized black tee in heavyweight cotton.</p>
+
+            <a className="inline-merch-link" href="/merch/free-your-mind-tee">
+              View product
+            </a>
+          </div>
+
+          <div className="product-list" aria-label="Product highlights">
+            {freeYourMindTee.attributes.slice(0, 4).map((attribute) => (
+              <div className="product-row" key={attribute.label}>
+                <span>{attribute.label}</span>
+                <span>{attribute.value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

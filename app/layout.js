@@ -1,4 +1,6 @@
 import "./globals.css";
+import KonamiTetris from "../components/konami-tetris";
+import SiteFooter from "../components/site-footer";
 
 export const metadata = {
   metadataBase: new URL("https://blackmirror.studio"),
@@ -64,8 +66,12 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-scroll-behavior="smooth">
+      <body>
+        {children}
+        <SiteFooter />
+        <KonamiTetris />
+      </body>
     </html>
   );
 }

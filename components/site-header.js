@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { href: "#studio", label: "Studio" },
-  { href: "#services", label: "Services" },
-  { href: "#merch", label: "Merch" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#studio", label: "Studio" },
+  { href: "/#services", label: "Services" },
+  { href: "/merch/free-your-mind-tee", label: "Merch" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function SiteHeader() {
@@ -28,15 +29,15 @@ export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="nav-shell desktop-nav-shell">
-        <a className="nav-signature" href="#top" aria-label="Black Mirror Studio home">
+        <Link className="nav-signature" href="/" aria-label="Black Mirror Studio home">
           blackmirror.studio
-        </a>
+        </Link>
 
         <nav className="site-nav" aria-label="Primary">
           {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -50,9 +51,9 @@ export default function SiteHeader() {
 
       <div className="mobile-header-shell">
         <div className="mobile-topbar">
-          <a className="nav-signature mobile-brand" href="#top" aria-label="Black Mirror Studio home">
+          <Link className="nav-signature mobile-brand" href="/" aria-label="Black Mirror Studio home">
             blackmirror.studio
-          </a>
+          </Link>
 
           <button
             className="mobile-menu-button"
@@ -75,9 +76,9 @@ export default function SiteHeader() {
         >
           <nav className="mobile-menu-links" aria-label="Mobile Primary">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="mobile-menu-link" onClick={closeMenu}>
+              <Link key={item.href} href={item.href} className="mobile-menu-link" onClick={closeMenu}>
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
