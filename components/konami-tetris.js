@@ -330,6 +330,20 @@ export default function KonamiTetris() {
     setIsOpen(true);
   };
 
+  const advanceKeyboardSequence = (inputKey) => {
+    const expectedKey = KONAMI_SEQUENCE[sequenceIndex.current];
+
+    if (inputKey === expectedKey) {
+      sequenceIndex.current += 1;
+
+      if (sequenceIndex.current === KONAMI_SEQUENCE.length) {
+        openGame();
+      }
+    } else {
+      sequenceIndex.current = inputKey === KONAMI_SEQUENCE[0] ? 1 : 0;
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!isOpen && isEditableTarget(event.target)) {
@@ -385,22 +399,30 @@ export default function KonamiTetris() {
       }
 
       const normalizedKey = event.key.length === 1 ? event.key.toLowerCase() : event.key;
-      const expectedKey = KONAMI_SEQUENCE[sequenceIndex.current];
-
-      if (normalizedKey === expectedKey) {
-        sequenceIndex.current += 1;
-
-        if (sequenceIndex.current === KONAMI_SEQUENCE.length) {
-          openGame();
-        }
-      } else {
-        sequenceIndex.current = normalizedKey === KONAMI_SEQUENCE[0] ? 1 : 0;
-      }
+      advanceKeyboardSequence(normalizedKey);
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [game.gameOver, game.paused, isOpen]);
+
+  useEffect(() => {
+    const handleHintInput = (event) => {
+      if (isOpen) {
+        return;
+      }
+
+      const detail = event.detail;
+      if (!detail || typeof detail.key !== "string") {
+        return;
+      }
+
+      advanceKeyboardSequence(detail.key);
+    };
+
+    window.addEventListener("mirror-konami-input", handleHintInput);
+    return () => window.removeEventListener("mirror-konami-input", handleHintInput);
+  }, [isOpen]);
 
   useEffect(() => {
     const handleTouchStart = (event) => {

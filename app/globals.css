@@ -82,7 +82,28 @@ a {
 }
 
 .site-footer-hint {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.18rem;
   text-align: right;
+}
+
+.site-footer-token {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(242, 238, 231, 0.42);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color var(--ease), transform var(--ease);
+}
+
+.site-footer-token:hover,
+.site-footer-token:focus-visible {
+  color: rgba(242, 238, 231, 0.72);
 }
 
 .konami-overlay {
@@ -966,9 +987,14 @@ h2 {
   transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.product-gallery-main:hover .product-gallery-image,
 .product-gallery-main.is-zoomed .product-gallery-image {
   transform: scale(1.9);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-gallery-main:hover .product-gallery-image {
+    transform: scale(1.9);
+  }
 }
 
 .product-gallery-count {
