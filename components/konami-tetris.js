@@ -17,7 +17,6 @@ const KONAMI_SEQUENCE = [
   "b",
   "a",
 ];
-const TOUCH_SEQUENCE = KONAMI_SEQUENCE.slice(0, 8);
 
 const TETROMINOES = {
   I: [[1, 1, 1, 1]],
@@ -317,15 +316,12 @@ export default function KonamiTetris() {
   const [isOpen, setIsOpen] = useState(false);
   const [game, setGame] = useState(createInitialGame);
   const sequenceIndex = useRef(0);
-  const touchSequenceIndex = useRef(0);
-  const touchStart = useRef(null);
 
   const board = buildDisplayBoard(game.board, game.piece);
   const previewGrid = buildPreviewGrid(game.nextType);
 
   const openGame = () => {
     sequenceIndex.current = 0;
-    touchSequenceIndex.current = 0;
     setGame(createInitialGame());
     setIsOpen(true);
   };
@@ -405,95 +401,6 @@ export default function KonamiTetris() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [game.gameOver, game.paused, isOpen]);
-
-  useEffect(() => {
-    const handleHintInput = (event) => {
-      if (isOpen) {
-        return;
-      }
-
-      const detail = event.detail;
-      if (!detail || typeof detail.key !== "string") {
-        return;
-      }
-
-      advanceKeyboardSequence(detail.key);
-    };
-
-    window.addEventListener("mirror-konami-input", handleHintInput);
-    return () => window.removeEventListener("mirror-konami-input", handleHintInput);
-  }, [isOpen]);
-
-  useEffect(() => {
-    const handleUnlock = () => {
-      if (!isOpen) {
-        openGame();
-      }
-    };
-
-    window.addEventListener("mirror-konami-unlock", handleUnlock);
-    return () => window.removeEventListener("mirror-konami-unlock", handleUnlock);
-  }, [isOpen]);
-
-  useEffect(() => {
-    const handleTouchStart = (event) => {
-      if (isOpen || event.touches.length !== 1) {
-        return;
-      }
-
-      const touch = event.touches[0];
-      touchStart.current = { x: touch.clientX, y: touch.clientY };
-    };
-
-    const handleTouchEnd = (event) => {
-      if (isOpen || !touchStart.current) {
-        return;
-      }
-
-      const touch = event.changedTouches[0];
-      if (!touch) {
-        return;
-      }
-
-      const dx = touch.clientX - touchStart.current.x;
-      const dy = touch.clientY - touchStart.current.y;
-      touchStart.current = null;
-
-      const threshold = 42;
-      if (Math.abs(dx) < threshold && Math.abs(dy) < threshold) {
-        return;
-      }
-
-      const direction =
-        Math.abs(dx) > Math.abs(dy)
-          ? dx > 0
-            ? "ArrowRight"
-            : "ArrowLeft"
-          : dy > 0
-            ? "ArrowDown"
-            : "ArrowUp";
-
-      const expectedDirection = TOUCH_SEQUENCE[touchSequenceIndex.current];
-
-      if (direction === expectedDirection) {
-        touchSequenceIndex.current += 1;
-
-        if (touchSequenceIndex.current === TOUCH_SEQUENCE.length) {
-          openGame();
-        }
-      } else {
-        touchSequenceIndex.current = direction === TOUCH_SEQUENCE[0] ? 1 : 0;
-      }
-    };
-
-    document.addEventListener("touchstart", handleTouchStart, { passive: true });
-    document.addEventListener("touchend", handleTouchEnd, { passive: true });
-
-    return () => {
-      document.removeEventListener("touchstart", handleTouchStart);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) {
